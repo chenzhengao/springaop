@@ -1,0 +1,36 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="userService" class="com.czg.service.UserServicelmp"></bean>
+
+
+
+
+
+    <!--自定义通知类：也就是切面-->
+    <bean id="logAdvice" class="com.czg.aop.LogAdvice"></bean>
+
+    <aop:config>
+
+        <!--切入点-->
+        <aop:pointcut id="logAdvicepointcut" expression="execution(* com.czg.service.UserServicelmp.* (..))"></aop:pointcut>
+
+        <!--配置切面-->
+        <aop:aspect ref="logAdvice">
+            <!--切面类中增强方法配置-->
+            <aop:before method="beforeLog" pointcut-ref="logAdvicepointcut" ></aop:before>
+            <aop:after-returning method="afterReturning" pointcut-ref="logAdvicepointcut"></aop:after-returning>
+
+            <aop:around method="around" pointcut-ref="logAdvicepointcut"></aop:around>
+            <aop:after-throwing method="afterException" pointcut-ref="logAdvicepointcut"></aop:after-throwing>
+            <aop:after method="after" pointcut-ref="logAdvicepointcut" ></aop:after>
+
+        </aop:aspect>
+    </aop:config>
+
+</beans>

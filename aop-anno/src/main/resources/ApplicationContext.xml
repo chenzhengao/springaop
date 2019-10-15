@@ -1,0 +1,19 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--注册，让spring进行管理分配，装配对象-->
+    <bean id="userService" class="com.czg.service.UserServicelmp"></bean>
+
+    <bean id="annoAdvice" class="com.czg.aop.AnnoAdvice"></bean>
+
+
+    <!--开始自动代理，使用注解代理，需要注册这个-->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+
+</beans>

@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--注册，让spring进行管理分配，装配对象-->
+    <bean id="UserService" class="com.czg.service.UserServicelmp"></bean>
+
+    <bean id="LogBefore" class="com.czg.aop.LogBefore"></bean>
+    <bean id="LogAfter" class="com.czg.aop.LogAfter"></bean>
+
+
+    <aop:config>
+        <!--切入点：也就是需要把通知放在用在那些方法中
+            execution使用：execution([类的修饰符] [类的全路径].[方法][方法的参数])
+
+        -->
+        <aop:pointcut id="pointcut" expression="execution(* com.czg.service.*.*(..))"/>
+
+        <aop:advisor advice-ref="LogBefore" pointcut-ref="pointcut"></aop:advisor>
+        <aop:advisor advice-ref="LogAfter" pointcut-ref="pointcut"></aop:advisor>
+
+    </aop:config>
+
+</beans>
